@@ -4,6 +4,7 @@ using RentACarAPI.Core.Entities.Concrete;
 using RentACarAPI.Core.Utilities.Results;
 using RentACarAPI.Core.Utilities.Security.Hashing;
 using RentACarAPI.Core.Utilities.Security.Jwt;
+using RentACarAPI.DataAccess.Abstract;
 using RentACarAPI.Entity.DTOs;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace RentACarAPI.Business.Concrete
     public class AuthManager : IAuthService
     {
         private readonly IUserService _userService;
+        
 
         public AuthManager(ITokenHelper tokenHelper, IUserService userService)
         {
-           
+
             _tokenHelper = tokenHelper;
             _userService = userService;
+           
         }
 
         private readonly ITokenHelper _tokenHelper;
@@ -64,6 +67,8 @@ namespace RentACarAPI.Business.Concrete
 
             };
             _userService.Add(userToAdd);
+            
+            
             
             return new SuccessDataResult<User>(userToAdd, Messages.UserRegistered);
         }
